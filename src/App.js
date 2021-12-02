@@ -1,15 +1,14 @@
-import logo from './logo.svg';
+import './App.css';
 import React,{useState,useEffect} from 'react';
 import WeatherCard from './components/WeatherCard';
 require('dotenv').config()
-//import './App.css';
 
 function App() {
 
   const [weatherFiveDays, setWeatherFiveDays] = useState(null);
 
   const fetchWeatherData = ()=>{
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=77.0369&lon=38.9072&exclude={part}&appid=${process.env.REACT_APP_API_KEY}`).then(data=>data.json()).then(async json=>{
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=38.9072&lon=77.0369&appid=${process.env.REACT_APP_API_KEY}`).then(data=>data.json()).then(async json=>{
       setWeatherFiveDays(json.daily.slice(0,5))
     }).catch((err)=>
         console.log(err)
@@ -31,7 +30,7 @@ function App() {
 
   return (
     <div className="App">
-      Hello!
+      <div className = "weather-card-container">
       {weatherFiveDays?weatherFiveDays.map((dayData,idx)=>{
         console.log(idx)
         return (
@@ -44,6 +43,7 @@ function App() {
         )
       }):<>loading...</>
       }
+      </div>
     </div>
   );
 }
